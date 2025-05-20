@@ -1,0 +1,61 @@
+```{r}
+gols <- c(3,1,3,2,2,3,1,3,1,4,1,2,1,4,3,2,3,3,1,0,1,3,3,1,2,2,5,2,2,0)
+
+three_gols <- 0
+four_gols <- 0
+
+for (i in gols){
+  if (i == 3) {
+    three_gols <- three_gols + 1
+  } else if (i == 4) {
+    four_gols <- four_gols + 1
+  }
+}
+
+three_prob <- three_gols/length(gols)
+print(three_prob)
+
+four_prob <- four_gols/length(gols)
+print(four_prob)
+
+three_four_gols <- (three_gols+four_gols)/length(gols)
+print(three_four_gols)
+
+feeric_games <- 0
+
+for (i in gols){
+  if (i > 3) {
+    feeric_games <- feeric_games + 1
+  }
+}
+
+prob_the_first <- feeric_games/length(gols)
+print(prob_the_first)
+
+hist(gols)
+
+print(median(gols))
+
+
+med <- sum(gols)/length(gols)
+temp <- 0
+
+for (i in gols) {
+  temp <- temp + (i - med)^2
+}
+
+vib <- (1/(length(gols)))*temp
+
+print(vib)
+
+nesm <- (1/(length(gols)-1))*temp
+
+print(nesm)
+
+
+sorted_gols <- sort(gols, decreasing = TRUE)
+
+print(median(sorted_gols))
+
+```
+

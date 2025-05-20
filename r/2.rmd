@@ -1,0 +1,40 @@
+# 10
+Дата фреймы
+```{r}
+?read.table
+?read.csv
+```
+```{r}
+mpg <- read.csv("auto-mpg-quiz.csv")
+head(mpg)
+tail(mpg)
+
+View(mpg)
+str(mpg)
+names(mpg)
+nrow(mpg)
+ncol(mpg)
+
+summary(mpg)
+```
+```{r}
+mpg <- read.csv("auto-mpg-quiz.csv", stringsAsFactors = TRUE)
+#summary(mpg)
+#mpg$cyl
+#mpg['cyl']
+
+#mpg[c('cyl', 'hp')]
+
+#mpg[2, 3]
+#head(mpg, 3)
+#mpg[1,]
+#mpg[,5:9]
+
+head(mpg['hp'] * 2)
+mpg['new'] <- mpg['hp'] * 9
+mpg['new']
+#head(mpg[mpg['new'] > 2000,])
+head(subset(mpg, new>2000))
+write.csv(mpg, "auto-mpg-quiz.csv")
+```
+

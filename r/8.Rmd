@@ -1,0 +1,47 @@
+```{r}
+?read.table
+?read.csv
+
+mpg <- read.csv("regionsalary.csv", stringsAsFactors = TRUE)
+
+# View(mpg)
+
+var_mpg <- mpg[order(mpg$SALARY, decreasing=TRUE),]
+# View(var_mpg)
+
+# print(var_mpg[36, 1:2])
+# print(var_mpg[43, 1:2])
+# print(var_mpg[70, 1:2])
+
+mpg$salary_interval <- cut(mpg$SALARY, breaks = 10, include.lowest = TRUE, right = FALSE)
+
+interval_counts <- table(mpg$salary_interval)
+
+# print(interval_counts[1])
+# print(interval_counts[3])
+# print(interval_counts[6])
+
+sample_mean = sum(mpg$SALARY)/length(mpg$SALARY)
+# print(sample_mean)
+
+biased_variance <- sum((mpg$SALARY - sample_mean)^2) / length(mpg$SALARY)
+# print(biased_variance)
+unbiased_variance <- var(mpg$SALARY)
+# print(unbiased_variance)
+
+sample_median <- median(mpg$SALARY)
+print(sample_median)
+```
+
+```{r}
+?read.table
+?read.csv
+
+mpg <- read.csv("Poisson_19.csv", stringsAsFactors = TRUE)
+View(mpg)
+total_call <- sum(mpg$X2)
+lambda <- total_call/nrow(mpg)
+print(lambda)
+
+```
+

@@ -1,0 +1,131 @@
+```{r}
+ht <- new.env(hash = TRUE)
+
+ht[["1"]] <- 0
+ht[["2"]] <- 0
+ht[["3"]] <- 0
+ht[["4"]] <- 0
+ht[["5"]] <- 0
+ht[["6"]] <- 0
+
+x <- c(1, 4, 4, 4, 3, 5, 4, 4, 5)
+
+for (i in x) {
+  temp = as.character(i)
+  ht[[temp]] <- ht[[temp]]+1
+}
+
+for (key in ls(ht)) {
+  cat(paste0("P(ξ* = ", key, ") = ", ht[[key]]/9, "\n"))
+}
+
+mx = mean(x)
+
+print(mx)
+
+disp <- 0
+
+for (i in x) {
+  disp <- disp + (i-mx)^2
+}
+
+disp <- disp / length(x)
+
+print(disp)
+
+sigma = sqrt(disp)
+print(sigma)
+
+range1 = mx - sigma
+range2 = mx + sigma
+
+print(range1)
+print(range2)
+```
+
+```{r}
+dists <- c(dbinom(2, size = 7, prob = 0.46), 
+          dbinom(3, size = 7, prob = 0.46), 
+          dbinom(4, size = 7, prob = 0.46))
+
+print(sum(dists))
+```
+
+```{r}
+mat <- matrix(c(
+  "n/ξ", "151", "163", "166", "174",
+  3, 0.01, 0.32, 0.18, 0.22,
+  6, 0.10, 0.04, 0.07, 0.06
+), nrow = 3, byrow = TRUE)
+
+value_151 <- sum(as.numeric(mat[2:nrow(mat), 2]))
+value_163 <- sum(as.numeric(mat[2:nrow(mat), 3]))
+value_166 <- sum(as.numeric(mat[2:nrow(mat), 4]))
+value_174 <- sum(as.numeric(mat[2:nrow(mat), 5]))
+
+marginals <- c(value_151, value_163, value_166, value_174)
+
+height_values <- as.numeric(mat[1, 2:5])
+
+mx <- 0
+
+for (i in 1:length(marginals)) {
+  mx <- mx + height_values[i] * marginals[i]
+}
+
+disp <- 0
+
+mx2 <- 0
+
+for (i in 1:length(marginals)) {
+  mx2 <- mx2 + (height_values[i]^2) * marginals[i]
+}
+
+disp <- mx2 - (mx)^2
+
+
+marginals_n <- c(sum(as.numeric(mat[2, 2:5])), sum(as.numeric(mat[3, 2:5])))
+
+len_jump <- c(as.numeric(mat[2, 1]), as.numeric(mat[3, 1]))
+
+mx_n <- 0 
+
+for (i in 1:length(marginals_n)) {
+  mx_n <- mx_n + len_jump[i] * marginals_n[i]
+}
+
+dsip_n <- 0
+
+mx2_n <- 0
+
+for (i in 1:length(marginals_n)) {
+  mx2_n <- mx2_n + (len_jump[i]^2) * marginals_n[i]
+}
+
+disp_n <- mx2_n - (mx_n)^2
+
+sovm_mx <- 0
+
+for (i in 1:length(len_jump)) {
+  tmp_sovm <- 0
+  for (j in 1:length(height_values)) {
+    tmp_sovm <- tmp_sovm + height_values[j] * len_jump[i] * as.numeric(mat[i + 1, j + 1])
+  }
+  print(tmp_sovm)
+  sovm_mx <- sovm_mx + tmp_sovm
+}
+
+print(sovm_mx)
+
+cov <- sovm_mx - mx * mx_n
+
+corr <- 0
+
+sigma1 = sqrt(disp)
+sigma2 = sqrt(disp_n)
+
+corr <- cov/(sigma1 * sigma2)
+
+print(corr)
+```
+

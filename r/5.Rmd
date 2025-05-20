@@ -1,0 +1,17 @@
+```{r}
+fun_mx = function(x) {
+  2 * x^2
+}
+mx = integrate(fun_mx, lower = 0, upper = 1)$value
+
+fun_sq = function(x) {
+  2 * x^3
+}
+mx2 = integrate(fun_sq, lower = 0, upper = 1)$value
+
+d_eta = 4 * (mx2 - mx^2)
+
+print(d_eta)
+
+```
+

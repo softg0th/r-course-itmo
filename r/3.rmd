@@ -1,0 +1,25 @@
+```{r}
+quadraticRoots <- function(a, b, c) {
+   if (a == 0) {
+  return(paste0("Уравнение не является квадратным"))}
+  discriminant <- (b^2) - (4*a*c)
+  if(discriminant < 0) {
+    return(paste0("Действительных корней нет"))
+  }
+  else if(discriminant > 0) {
+    x_int_plus <- (-b + sqrt(discriminant)) / (2*a)
+    x_int_neg <- (-b - sqrt(discriminant)) / (2*a)
+
+    return(paste0("Два действительных корня ",
+                  format(round(x_int_plus, 5), nsmall = 5), " и ",
+                  format(round(x_int_neg, 5), nsmall = 5), "."))
+  }
+  else
+    x_int <- (-b) / (2*a)
+    return(paste0("Один действительный корень ",
+                  x_int))
+}
+quadraticRoots(2.5, 4.5, -1)
+
+```
+
